@@ -5,25 +5,27 @@ import pandas as pd
 from json import dumps
 
 
-def scrap_article(chrome, url, first_time):
-    chrome.get(url=url)
+def scrap_article(chrome, first_time):
+    #chrome.get(url=url)
     article = {}
-    sleep(3)
+    #sleep(3)
+    #chrome.execute_script("window.open('{}','_blank');".format(url))
+    #sleep(10)
 
     #article['timestamp'] = datetime.now()
-    #article['url'] = url
+    #article[''] = url
 
     if first_time == True:
         try:
             article['division'] = chrome \
-             .find_element_by_xpath('//*[@id="art-tags"]/a/span') \
+             .find_element_by_class_name('art-tag-label') \
              .text
             #article['author'] = chrome \
             # .find_element_by_xpath('//*[@id="art-header"]/div[3]/div[1]/span') \
             # .text
         except:
             article['division'] = chrome \
-             .find_element_by_xpath('//*[@id="art-tags"]/span') \
+             .find_element_by_class_name('art-tag-label') \
              .text
         #    article['division'] = None
         #article['pub_date'] = chrome \
@@ -41,13 +43,22 @@ def scrap_article(chrome, url, first_time):
             article['content'] += section.text
 
         try:
-            article['media_src'] = chrome \
-                .find_element_by_xpath('//*[@id="gazeta_article_image"]/div[1]/img') \
-                .get_attribute("src")
-            article['media_desc'] = chrome \
-                .find_element_by_xpath('//*[@id="gazeta_article_image"]/div[1]/img') \
-                .get_attribute("alt")
-            article['media_type'] = 'image'
+            try:
+                article['media_src'] = chrome \
+                    .find_element_by_xpath('//*[@id="gazeta_article_image"]/div[1]/img') \
+                    .get_attribute("src")
+                article['media_desc'] = chrome \
+                    .find_element_by_xpath('//*[@id="gazeta_article_image"]/div[1]/img') \
+                    .get_attribute("alt")
+                article['media_type'] = 'image'
+            except:
+                article['media_src'] = chrome \
+                    .find_element_by_xpath('//*[@id="gazeta_article_image"]/div[1]/a/img') \
+                    .get_attribute("src")
+                article['media_desc'] = chrome \
+                    .find_element_by_xpath('//*[@id="gazeta_article_image"]/div[1]/a/img') \
+                    .get_attribute("alt")
+                article['media_type'] = 'multiple_images'
         except:
             article['media_desc'] = chrome \
                 .find_element_by_xpath('//*[@id="vjs_video_3"]/div[9]') \
@@ -57,13 +68,14 @@ def scrap_article(chrome, url, first_time):
                 .get_attribute("src")
             article['media_type'] = 'video'
 
-    sleep(6)
-    for i in range(20):
-        if click_expand_comments(chrome):
-            break
-        else:
-            if click_popup(chrome):
-                click_expand_comments(chrome)
+#     sleep(6)
+#     for i in range(20):
+#         if click_expand_comments(chrome):
+#             break
+#         else:
+#             if click_popup(chrome):
+#                 click_expand_comments(chrome)
+    click_expand_comments(chrome)
 
     sleep(1)
     for showSubcommentsButton in chrome \
@@ -74,6 +86,7 @@ def scrap_article(chrome, url, first_time):
         showSubcommentsButton.click()
 
     article['comments'] = get_comments(chrome)
+    #chrome.close()
     return dumps(article)
 
 
@@ -178,13 +191,13 @@ def click_popup(chrome):
 
 if __name__ == '__main__':
     from sys import argv
-    url =  argv[1]
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument('--headless')
-    chrome_options.add_argument('--executable_path=/usr/bin/chromedriver')
-    chrome = webdriver.Chrome(options=chrome_options)
-    #chrome = webdriver.Chrome()
-    article = scrap_article(chrome, url)
+    url = 'http://wyborcza.pl/7,75399,24793013,data-inauguracji-wolodymyra-zelenskiego-w-koncu-ogloszona-nowy.html'
+    #chrome_options = webdriver.ChromeOptions()
+    #chrome_options.add_argument('--headless')
+    #chrome_options.add_argument('--executable_path=/usr/bin/chromedriver')
+    #chrome = webdriver.Chrome(options=chrome_options)
+    chrome = webdriver.Chrome()
+    article = scrap_article(chrome, url, True)
     print(article)
     #try:
     #    df = pd.read_csv('./'+url.split('/')[-1])
