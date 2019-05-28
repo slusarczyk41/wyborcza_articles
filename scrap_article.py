@@ -184,7 +184,7 @@ if __name__ == '__main__':
     chrome_options.add_argument('--executable_path=/usr/bin/chromedriver')
     chrome = webdriver.Chrome(options=chrome_options)
     #chrome = webdriver.Chrome()
-    article = scrap_article(chrome, url)
+    article = scrap_article(chrome, url, True)
     print(article)
     #try:
     #    df = pd.read_csv('./'+url.split('/')[-1])
