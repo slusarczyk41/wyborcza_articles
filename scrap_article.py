@@ -3,6 +3,7 @@ from time import sleep
 from datetime import datetime
 import pandas as pd
 from json import dumps
+from unidecode import unidecode
 
 
 def scrap_article(chrome, url, first_time):
@@ -74,7 +75,7 @@ def scrap_article(chrome, url, first_time):
         showSubcommentsButton.click()
 
     article['comments'] = get_comments(chrome)
-    return dumps(article)
+    return loads(dumps(article, ensure_ascii=False))
 
 
 def get_comments(chrome):
