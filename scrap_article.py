@@ -2,7 +2,7 @@ from selenium import webdriver
 from time import sleep
 from datetime import datetime
 import pandas as pd
-from json import dumps
+from json import dumps, loads
 from unidecode import unidecode
 
 

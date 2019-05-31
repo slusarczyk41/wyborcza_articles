@@ -68,13 +68,6 @@ def scrap_article(chrome, first_time):
                 .get_attribute("src")
             article['media_type'] = 'video'
 
-#     sleep(6)
-#     for i in range(20):
-#         if click_expand_comments(chrome):
-#             break
-#         else:
-#             if click_popup(chrome):
-#                 click_expand_comments(chrome)
     click_expand_comments(chrome)
 
     sleep(1)
@@ -86,7 +79,6 @@ def scrap_article(chrome, first_time):
         showSubcommentsButton.click()
 
     article['comments'] = get_comments(chrome)
-    #chrome.close()
     return dumps(article)
 
 
