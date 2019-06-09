@@ -9,7 +9,7 @@ from unidecode import unidecode
 def scrap_article(chrome, url, first_time):
     chrome.get(url=url)
     article = {}
-    sleep(3)
+    sleep(6)
 
     #article['timestamp'] = datetime.now()
     #article['url'] = url
