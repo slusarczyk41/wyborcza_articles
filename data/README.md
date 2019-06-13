@@ -1,0 +1,7 @@
+- /comments - to store comment as they were scrapped from website (one file - one article)
+- concat_comments.ipynb - process comments to one file with every line as string comment
+- process_json.ipynb - proccess comments to retrieve more data, such as number of upvotes or replies
+- all_raw_comments - processed comments from concat_comments.ipynb
+- comments.zip - zipped pure comments
+- polish.stopwords.txt - polish stop words downloaded from the internet
+- processed_comments_x.csv - processed comments from process_json.ipynb
