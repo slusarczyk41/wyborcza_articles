@@ -39,3 +39,11 @@ The idea is the same, but this time to obtain those vectors we will create neura
 #### 7) Analyze users by emotions they mostly represent
 
 #### 8) Find people who got paid to write rage comments
+
+features:
+- sentiment
+- regularity
+- connections with other commenters
+- vocabulary
+- response speed
+- posting hours
