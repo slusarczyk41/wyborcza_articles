@@ -28,17 +28,23 @@ The idea is the same, but this time to obtain those vectors we will create neura
 ##### &nbsp;&nbsp;&nbsp;2.5. K-means
 
 
-#### 3) Train model to predict emotions from comment
+#### 3. Train model to predict emotions from comment
 
-#### 4) Train model to predict emotions from article
+3.1 Pick x most important words based on TF-ITF
+3.2 For those words create vetors
+3.3 Represent each comment as matrix (n words for m vector length)
+3.4 Add my words features
+3.5 Train
 
-#### 5) Write simple flask API with two endpoints for each model
+#### 4. Train model to predict emotions from article
 
-#### 6) Write chrome extension
+#### 5. Write simple flask API with two endpoints for each model
 
-#### 7) Analyze users by emotions they mostly represent
+#### 6. Write chrome extension
 
-#### 8) Find people who got paid to write rage comments
+#### 7. Analyze users by emotions they mostly represent
+
+#### 8. Find people who got paid to write rage comments
 
 features:
 - sentiment
