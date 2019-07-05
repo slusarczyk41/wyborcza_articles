@@ -1,0 +1,269 @@
+07/05/2019 03:38:45 PM INFO: Reading notebook old_articles.ipynb
+07/05/2019 03:38:50 PM INFO: Running cell:
+from selenium import webdriver
+import pandas as pd
+from scrap_article_current_tab import scrap_article
+
+from datetime import datetime as dt
+from datetime import timedelta as td
+from os import makedirs
+from os.path import exists
+from time import sleep
+from json import loads
+
+07/05/2019 03:38:54 PM INFO: Cell returned
+07/05/2019 03:38:54 PM INFO: Running cell:
+now = dt.now()
+year = now.year
+month = now.month
+day = now.day
+ts = str(int(round(now.timestamp())))
+
+07/05/2019 03:38:54 PM INFO: Cell returned
+07/05/2019 03:38:54 PM INFO: Running cell:
+options = webdriver.ChromeOptions()
+options.add_argument('--headless')
+chrome = webdriver.Chrome(options=options)
+
+07/05/2019 03:38:57 PM INFO: Cell returned
+07/05/2019 03:38:57 PM INFO: Running cell:
+# chrome = webdriver.Chrome()
+
+07/05/2019 03:38:57 PM INFO: Cell returned
+07/05/2019 03:38:57 PM INFO: Running cell:
+chrome.get(url = 'http://wyborcza.pl/0,75248.html?str=100_23719317')
+
+07/05/2019 03:39:23 PM INFO: Cell returned
+07/05/2019 03:39:23 PM INFO: Running cell:
+sleep(10)
+
+07/05/2019 03:39:33 PM INFO: Cell returned
+07/05/2019 03:39:33 PM INFO: Running cell:
+# try to click rodo (first click opens sometimes an ad also)
+for i in range(3):
+    try:
+        sleep(3)
+        chrome.find_element_by_xpath('//*[@id="rodoNotificationWrapper"]/div[1]/div/p[2]')\
+            .click()
+    except:
+        pass
+
+07/05/2019 03:39:43 PM INFO: Cell returned
+07/05/2019 03:39:43 PM INFO: Running cell:
+# close new window if exists
+try:
+    chrome.switch_to.window(chrome.window_handles[1])
+    chrome.close()
+except:
+    pass
+
+07/05/2019 03:39:43 PM INFO: Cell returned
+07/05/2019 03:39:43 PM INFO: Running cell:
+chrome.switch_to.window(chrome.window_handles[0])
+
+07/05/2019 03:39:43 PM INFO: Cell returned
+07/05/2019 03:39:43 PM INFO: Running cell:
+chrome.get('https://login.wyborcza.pl/')
+
+07/05/2019 03:39:49 PM INFO: Cell returned
+07/05/2019 03:39:49 PM INFO: Running cell:
+chrome\
+    .find_element_by_xpath('//*[@id="wyborczaEmail"]')\
+    .send_keys('slusarczyk1@wp.pl')
+
+07/05/2019 03:39:50 PM INFO: Cell returned
+07/05/2019 03:39:50 PM INFO: Running cell:
+chrome\
+    .find_element_by_xpath('//*[@id="wyborczaPassword"]')\
+    .send_keys('Sraniejebanko1')
+
+07/05/2019 03:39:50 PM INFO: Cell returned
+07/05/2019 03:39:50 PM INFO: Running cell:
+chrome\
+    .find_element_by_xpath('/html/body/section/section[1]/form/div[4]/button')\
+    .click()
+
+07/05/2019 03:39:51 PM INFO: Cell returned
+07/05/2019 03:39:51 PM INFO: Running cell:
+sleep(5)
+
+07/05/2019 03:39:56 PM INFO: Cell returned
+07/05/2019 03:39:56 PM INFO: Running cell:
+urls = []
+for i in range(1100, 3000):
+    chrome.get(url = 'http://wyborcza.pl/0,75248.html?str='+str(i)+'_23719317')
+    for entry in chrome\
+        .find_element_by_xpath('//*[@id="pagetype_index"]/section[5]/div/main/div/div[2]/div/div[2]/ul')\
+        .find_elements_by_class_name('entry'):
+        
+        url = entry.find_element_by_tag_name('h3')\
+                .find_element_by_tag_name('a')\
+                .get_attribute('href')
+        #scrap_article(chrome, url, first_time)
+        urls.append(url)
+    break
+    
+
+07/05/2019 03:40:39 PM INFO: Cell returned
+07/05/2019 03:40:39 PM INFO: Running cell:
+import pandas as pd
+
+07/05/2019 03:40:39 PM INFO: Cell returned
+07/05/2019 03:40:39 PM INFO: Running cell:
+# df = pd.DataFrame(urls, columns = ['urls'])
+
+07/05/2019 03:40:39 PM INFO: Cell returned
+07/05/2019 03:40:39 PM INFO: Running cell:
+df.to_csv('old_urls_2.csv')
+
+07/05/2019 03:40:40 PM INFO: Cell raised uncaught exception: 
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mNameError[0m                                 Traceback (most recent call last)
+[0;32m<ipython-input-18-f173fd473374>[0m in [0;36m<module>[0;34m[0m
+[0;32m----> 1[0;31m [0mdf[0m[0;34m.[0m[0mto_csv[0m[0;34m([0m[0;34m'old_urls_2.csv'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m
+[0;31mNameError[0m: name 'df' is not defined
+07/05/2019 03:40:40 PM INFO: Shutdown kernel
+07/05/2019 03:40:41 PM WARNING: Exiting with nonzero exit status
+07/05/2019 03:53:48 PM INFO: Reading notebook old_articles.ipynb
+07/05/2019 03:58:03 PM INFO: Running cell:
+from selenium import webdriver
+import pandas as pd
+from scrap_article_current_tab import scrap_article
+
+from datetime import datetime as dt
+from datetime import timedelta as td
+from os import makedirs
+from os.path import exists
+from time import sleep
+from json import loads
+
+07/05/2019 03:58:05 PM INFO: Cell returned
+07/05/2019 03:58:05 PM INFO: Running cell:
+now = dt.now()
+year = now.year
+month = now.month
+day = now.day
+ts = str(int(round(now.timestamp())))
+
+07/05/2019 03:58:05 PM INFO: Cell returned
+07/05/2019 03:58:05 PM INFO: Running cell:
+options = webdriver.ChromeOptions()
+options.add_argument('--headless')
+chrome = webdriver.Chrome(options=options)
+
+07/05/2019 03:58:07 PM INFO: Cell returned
+07/05/2019 03:58:07 PM INFO: Running cell:
+# chrome = webdriver.Chrome()
+
+07/05/2019 03:58:07 PM INFO: Cell returned
+07/05/2019 03:58:07 PM INFO: Running cell:
+chrome.get(url = 'http://wyborcza.pl/0,75248.html?str=100_23719317')
+
+07/05/2019 03:58:19 PM INFO: Cell returned
+07/05/2019 03:58:19 PM INFO: Running cell:
+sleep(10)
+
+07/05/2019 03:58:29 PM INFO: Cell returned
+07/05/2019 03:58:29 PM INFO: Running cell:
+# try to click rodo (first click opens sometimes an ad also)
+for i in range(3):
+    try:
+        sleep(3)
+        chrome.find_element_by_xpath('//*[@id="rodoNotificationWrapper"]/div[1]/div/p[2]')\
+            .click()
+    except:
+        pass
+
+07/05/2019 03:58:39 PM INFO: Cell returned
+07/05/2019 03:58:39 PM INFO: Running cell:
+# close new window if exists
+try:
+    chrome.switch_to.window(chrome.window_handles[1])
+    chrome.close()
+except:
+    pass
+
+07/05/2019 03:58:39 PM INFO: Cell returned
+07/05/2019 03:58:39 PM INFO: Running cell:
+chrome.switch_to.window(chrome.window_handles[0])
+
+07/05/2019 03:58:39 PM INFO: Cell returned
+07/05/2019 03:58:39 PM INFO: Running cell:
+chrome.get('https://login.wyborcza.pl/')
+
+07/05/2019 03:58:42 PM INFO: Cell returned
+07/05/2019 03:58:42 PM INFO: Running cell:
+chrome\
+    .find_element_by_xpath('//*[@id="wyborczaEmail"]')\
+    .send_keys('slusarczyk1@wp.pl')
+
+07/05/2019 03:58:43 PM INFO: Cell returned
+07/05/2019 03:58:43 PM INFO: Running cell:
+chrome\
+    .find_element_by_xpath('//*[@id="wyborczaPassword"]')\
+    .send_keys('Sraniejebanko1')
+
+07/05/2019 03:58:43 PM INFO: Cell returned
+07/05/2019 03:58:43 PM INFO: Running cell:
+chrome\
+    .find_element_by_xpath('/html/body/section/section[1]/form/div[4]/button')\
+    .click()
+
+07/05/2019 03:58:44 PM INFO: Cell returned
+07/05/2019 03:58:44 PM INFO: Running cell:
+sleep(5)
+
+07/05/2019 03:58:49 PM INFO: Cell returned
+07/05/2019 03:58:49 PM INFO: Running cell:
+urls = []
+for i in range(1100, 3000):
+    chrome.get(url = 'http://wyborcza.pl/0,75248.html?str='+str(i)+'_23719317')
+    for entry in chrome\
+        .find_element_by_xpath('//*[@id="pagetype_index"]/section[5]/div/main/div/div[2]/div/div[2]/ul')\
+        .find_elements_by_class_name('entry'):
+        
+        url = entry.find_element_by_tag_name('h3')\
+                .find_element_by_tag_name('a')\
+                .get_attribute('href')
+        #scrap_article(chrome, url, first_time)
+        urls.append(url)
+    break
+    
+
+07/05/2019 03:59:13 PM INFO: Cell returned
+07/05/2019 03:59:13 PM INFO: Running cell:
+import pandas as pd
+
+07/05/2019 03:59:13 PM INFO: Cell returned
+07/05/2019 03:59:13 PM INFO: Running cell:
+df = pd.DataFrame(urls, columns = ['urls'])
+
+07/05/2019 03:59:13 PM INFO: Cell returned
+07/05/2019 03:59:13 PM INFO: Running cell:
+df.to_csv('old_urls_2.csv')
+
+07/05/2019 03:59:13 PM INFO: Cell returned
+07/05/2019 03:59:13 PM INFO: Running cell:
+df = pd.read_csv('old_urls.csv')
+
+07/05/2019 03:59:13 PM INFO: Cell returned
+07/05/2019 03:59:13 PM INFO: Running cell:
+errors = []
+
+07/05/2019 03:59:13 PM INFO: Cell returned
+07/05/2019 03:59:14 PM INFO: Running cell:
+for url in df['urls'].values:
+    print(url)
+    try:
+        a = scrap_article(chrome, url, True)
+        with open('data/comments/'+a['url'].split('/')[-1].split(',')[2], 'w') as f:
+            f.write(str({'row': {
+               'comments': a,
+               'timestamp': dt.timestamp(dt.now())
+               }
+            }))
+    except:
+        errors.append(url)
+    print(a['url'].split('/')[-1].split(',')[2])
+
