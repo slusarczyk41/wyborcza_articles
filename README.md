@@ -46,11 +46,14 @@ a bit since the vocabulary size was too huge and couldn't fit vectors into my co
 #### 4. Train model to predict emotions from article
 That is the main purpose of this project - be able to know before publishing an article user engagement.
 
-- title
+- titlerefuge.
 - author
 - tags?
 - image
 - content (short or long one)
+- dummy datetime
+- division category
+- author category
 
 ##### &nbsp;&nbsp;&nbsp; 4.1. Try to predict three different measures
 - what emotions could it

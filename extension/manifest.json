@@ -1,0 +1,15 @@
+{
+  "name": "Getting Started Example",
+  "version": "1.0",
+  "description": "Build an Extensionaaaa!",
+  "manifest_version": 2,
+
+  "browser_action": {
+    "default_title": "Test",
+    "default_popup": "index.html"
+  },
+  "permissions": [
+      "activeTab",
+      "<all_urls>"
+  ]
+}
