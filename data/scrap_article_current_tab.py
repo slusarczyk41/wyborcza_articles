@@ -7,9 +7,13 @@ from json import dumps, loads
 
 def scrap_article(chrome, url, first_time):
     chrome.get(url=url)
-    sleep(3)
+    sleep(1)
     article = {}
     article['url'] = url
+    try:
+        chrome.find_element_by_xpath('//*[@id="rodoNotificationWrapper"]/div[1]/div/p[2]').click()
+    except:
+        pass
 
     if first_time == True:
         try:
@@ -23,18 +27,39 @@ def scrap_article(chrome, url, first_time):
                  .text
             except:
                 article['division'] = None
-            
-        article['pub_date'] = chrome \
-            .find_element_by_xpath('//*[@id="art-datetime"]') \
-            .text
-        article['author'] = chrome \
-             .find_element_by_xpath('//*[@id="art-header"]/div[3]/div[1]/span') \
-             .text
-
-        article['title'] = chrome.find_element_by_xpath('//*[@id="art-header"]/div[2]/h1').text
-        article['highlight'] = chrome \
-            .find_element_by_xpath('//*[@id="pagetype_art"]/div[4]/div[2]/section/article/section') \
-            .text
+        
+        try:
+            article['pub_date'] = chrome \
+                .find_element_by_xpath('//*[@id="art-datetime"]') \
+                .text
+        except:
+            article['pub_date'] = chrome \
+                .find_element_by_xpath('//*[@id="gazeta_article_date"]') \
+                .text
+        
+        try:
+            article['author'] = chrome \
+                 .find_element_by_xpath('//*[@id="art-header"]/div[3]/div[1]/span') \
+                 .text
+        except:
+            article['author'] = chrome \
+                 .find_element_by_xpath('//*[@id="gazeta_article_author"]') \
+                 .text
+        
+        try:
+            article['title'] = chrome.find_element_by_xpath('//*[@id="art-header"]/div[2]/h1').text
+        except:
+            article['title'] = chrome.\
+                find_element_by_xpath('//*[@id="pagetype_wideo"]/main/div/div/h1').text
+        
+        try:
+            article['highlight'] = chrome \
+              .find_element_by_xpath('//*[@id="pagetype_art"]/div[4]/div[2]/section/article/section') \
+              .text
+        except:
+            article['highlight'] = chrome \
+              .find_element_by_xpath('//*[@id="pagetype_wideo"]/main/div/section/div[1]/p') \
+              .text
 
 
         article['content'] = ""
@@ -59,32 +84,49 @@ def scrap_article(chrome, url, first_time):
                     .get_attribute("alt")
                 article['media_type'] = 'multiple_images'
         except:
-            article['media_desc'] = chrome \
-                .find_element_by_xpath('//*[@id="vjs_video_3"]/div[9]') \
-                .text
-            article['media_src'] = chrome \
-                .find_element_by_xpath('//*[@id="vjs_video_3_html5_api"]') \
-                .get_attribute("src")
+            chrome.execute_script("scroll(0, 300);")
+            sleep(2)
+            try:
+                article['media_desc'] = chrome.find_element_by_id('vjs_video_3')\
+                    .get_attribute("title")
+            except:
+                article['media_desc'] = chrome.find_element_by_id('vjs_video_3_html5_api')\
+                    .get_attribute("title")
+                
+            article['media_src'] = ''
             article['media_type'] = 'video'
 
     click_expand_comments(chrome)
 
     sleep(1)
-    for showSubcommentsButton in chrome \
-            .find_element_by_xpath('//*[@id="pagetype_art"]/main/div/section/div[2]/div[2]/section/section') \
-            .find_elements_by_class_name('cResShow'):
-        chrome.execute_script("arguments[0].scrollIntoView();", showSubcommentsButton)
-        chrome.execute_script("window.scrollBy(0, -50);")
-        showSubcommentsButton.click()
+    try:
+        for showSubcommentsButton in chrome \
+                .find_element_by_xpath('//*[@id="pagetype_art"]/main/div/section/div[2]/div[2]/section/section') \
+                .find_elements_by_class_name('cResShow'):
+            chrome.execute_script("arguments[0].scrollIntoView();", showSubcommentsButton)
+            chrome.execute_script("window.scrollBy(0, -50);")
+            showSubcommentsButton.click()
+    except:
+        pass
+    
 
     article['comments'] = get_comments(chrome)
+        
     return loads(dumps(article, ensure_ascii=False))
 
 
 def get_comments(chrome):
     allComments = []
-    for mainCommentContainer in chrome \
-            .find_element_by_xpath('//*[@id="pagetype_art"]/main/div/section/div[2]/div[2]/section/section') \
+    
+    try:
+        comments_section = chrome \
+    .find_element_by_xpath('//*[@id="pagetype_art"]/main/div/section/div[2]/div[2]/section/section')
+    except:
+        comments_section = chrome \
+    .find_element_by_xpath('//*[@id="pagetype_wideo"]/main/div/section/div[3]/div[2]/section/section')
+        
+        
+    for mainCommentContainer in comments_section\
             .find_elements_by_class_name('cResHidden'):
         cContainer = {
             'main_comment': {},
@@ -182,18 +224,13 @@ def click_popup(chrome):
 
 if __name__ == '__main__':
     from sys import argv
-    url = 'http://wyborcza.pl/7,75399,24793013,data-inauguracji-wolodymyra-zelenskiego-w-koncu-ogloszona-nowy.html'
-    #chrome_options = webdriver.ChromeOptions()
-    #chrome_options.add_argument('--headless')
-    #chrome_options.add_argument('--executable_path=/usr/bin/chromedriver')
-    #chrome = webdriver.Chrome(options=chrome_options)
-    chrome = webdriver.Chrome()
-    article = scrap_article(chrome, url, True)
+#     url = 'http://wyborcza.pl/7,75399,24793013,data-inauguracji-wolodymyra-zelenskiego-w-koncu-ogloszona-nowy.html'
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--executable_path=/usr/bin/chromedriver')
+    chrome = webdriver.Chrome(options=chrome_options)
+    # chrome = webdriver.Chrome()
+    article = scrap_article(chrome, argv[1], True)
     print(article)
-    #try:
-    #    df = pd.read_csv('./'+url.split('/')[-1])
-    #    pd.concat([df, pd.DataFrame({"data": str(article)}, index=[len(df)])], sort=False).to_csv('./'+url.split('/')[-1])
-    #except:
-    #    pd.DataFrame({'data': str(article)}, index=[0]).to_csv('./'+url.split('/')[-1])
 
     chrome.close()

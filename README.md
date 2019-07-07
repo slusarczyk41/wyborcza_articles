@@ -54,6 +54,7 @@ That is the main purpose of this project - be able to know before publishing an 
 - dummy datetime
 - division category
 - author category
+- media type
 
 ##### &nbsp;&nbsp;&nbsp; 4.1. Try to predict three different measures
 - what emotions could it
