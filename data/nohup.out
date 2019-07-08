@@ -1,5 +1,5 @@
-07/05/2019 04:50:36 PM INFO: Reading notebook old_articles.ipynb
-07/05/2019 04:52:15 PM INFO: Running cell:
+07/07/2019 08:24:21 PM INFO: Reading notebook old_articles.ipynb
+07/07/2019 08:24:22 PM INFO: Running cell:
 from selenium import webdriver
 import pandas as pd
 from scrap_article_current_tab import scrap_article
@@ -11,34 +11,34 @@ from os.path import exists
 from time import sleep
 from json import loads
 
-07/05/2019 04:52:18 PM INFO: Cell returned
-07/05/2019 04:52:18 PM INFO: Running cell:
+07/07/2019 08:24:23 PM INFO: Cell returned
+07/07/2019 08:24:23 PM INFO: Running cell:
 now = dt.now()
 year = now.year
 month = now.month
 day = now.day
 ts = str(int(round(now.timestamp())))
 
-07/05/2019 04:52:18 PM INFO: Cell returned
-07/05/2019 04:52:18 PM INFO: Running cell:
+07/07/2019 08:24:23 PM INFO: Cell returned
+07/07/2019 08:24:23 PM INFO: Running cell:
 options = webdriver.ChromeOptions()
 options.add_argument('--headless')
 chrome = webdriver.Chrome(options=options)
 
-07/05/2019 04:52:20 PM INFO: Cell returned
-07/05/2019 04:52:20 PM INFO: Running cell:
+07/07/2019 08:24:24 PM INFO: Cell returned
+07/07/2019 08:24:24 PM INFO: Running cell:
 # chrome = webdriver.Chrome()
 
-07/05/2019 04:52:20 PM INFO: Cell returned
-07/05/2019 04:52:20 PM INFO: Running cell:
+07/07/2019 08:24:24 PM INFO: Cell returned
+07/07/2019 08:24:24 PM INFO: Running cell:
 chrome.get(url = 'http://wyborcza.pl/0,75248.html?str=100_23719317')
 
-07/05/2019 04:52:32 PM INFO: Cell returned
-07/05/2019 04:52:32 PM INFO: Running cell:
+07/07/2019 08:24:31 PM INFO: Cell returned
+07/07/2019 08:24:31 PM INFO: Running cell:
 sleep(10)
 
-07/05/2019 04:52:42 PM INFO: Cell returned
-07/05/2019 04:52:42 PM INFO: Running cell:
+07/07/2019 08:24:41 PM INFO: Cell returned
+07/07/2019 08:24:41 PM INFO: Running cell:
 # try to click rodo (first click opens sometimes an ad also)
 for i in range(3):
     try:
@@ -48,8 +48,8 @@ for i in range(3):
     except:
         pass
 
-07/05/2019 04:52:51 PM INFO: Cell returned
-07/05/2019 04:52:51 PM INFO: Running cell:
+07/07/2019 08:24:50 PM INFO: Cell returned
+07/07/2019 08:24:50 PM INFO: Running cell:
 # close new window if exists
 try:
     chrome.switch_to.window(chrome.window_handles[1])
@@ -57,40 +57,44 @@ try:
 except:
     pass
 
-07/05/2019 04:52:51 PM INFO: Cell returned
-07/05/2019 04:52:51 PM INFO: Running cell:
+07/07/2019 08:24:50 PM INFO: Cell returned
+07/07/2019 08:24:50 PM INFO: Running cell:
 chrome.switch_to.window(chrome.window_handles[0])
 
-07/05/2019 04:52:51 PM INFO: Cell returned
-07/05/2019 04:52:51 PM INFO: Running cell:
+07/07/2019 08:24:50 PM INFO: Cell returned
+07/07/2019 08:24:50 PM INFO: Running cell:
 chrome.get('https://login.wyborcza.pl/')
 
-07/05/2019 04:52:55 PM INFO: Cell returned
-07/05/2019 04:52:55 PM INFO: Running cell:
+07/07/2019 08:24:52 PM INFO: Cell returned
+07/07/2019 08:24:52 PM INFO: Running cell:
 chrome\
     .find_element_by_xpath('//*[@id="wyborczaEmail"]')\
     .send_keys('slusarczyk1@wp.pl')
 
-07/05/2019 04:52:55 PM INFO: Cell returned
-07/05/2019 04:52:55 PM INFO: Running cell:
+07/07/2019 08:24:52 PM INFO: Cell returned
+07/07/2019 08:24:52 PM INFO: Running cell:
 chrome\
     .find_element_by_xpath('//*[@id="wyborczaPassword"]')\
     .send_keys('Sraniejebanko1')
 
-07/05/2019 04:52:56 PM INFO: Cell returned
-07/05/2019 04:52:56 PM INFO: Running cell:
+07/07/2019 08:24:53 PM INFO: Cell returned
+07/07/2019 08:24:53 PM INFO: Running cell:
 chrome\
     .find_element_by_xpath('/html/body/section/section[1]/form/div[4]/button')\
     .click()
 
-07/05/2019 04:52:56 PM INFO: Cell returned
-07/05/2019 04:52:56 PM INFO: Running cell:
-sleep(5)
+07/07/2019 08:24:53 PM INFO: Cell returned
+07/07/2019 08:24:53 PM INFO: Running cell:
+sleep(3)
 
-07/05/2019 04:53:01 PM INFO: Cell returned
-07/05/2019 04:53:01 PM INFO: Running cell:
+07/07/2019 08:24:56 PM INFO: Cell returned
+07/07/2019 08:24:56 PM INFO: Running cell:
+# http://wyborcza.pl/0,93566.html?str=2_23721352 for video
+
+07/07/2019 08:24:56 PM INFO: Cell returned
+07/07/2019 08:24:56 PM INFO: Running cell:
 urls = []
-for i in range(1100, 3000):
+for i in range(1651, 2000):
     chrome.get(url = 'http://wyborcza.pl/0,75248.html?str='+str(i)+'_23719317')
     for entry in chrome\
         .find_element_by_xpath('//*[@id="pagetype_index"]/section[5]/div/main/div/div[2]/div/div[2]/ul')\
@@ -102,275 +106,44 @@ for i in range(1100, 3000):
         #scrap_article(chrome, url, first_time)
         urls.append(url)
     break
-    
 
-07/05/2019 04:53:28 PM INFO: Cell returned
-07/05/2019 04:53:28 PM INFO: Running cell:
+07/07/2019 08:25:08 PM INFO: Cell returned
+07/07/2019 08:25:08 PM INFO: Running cell:
 import pandas as pd
 
-07/05/2019 04:53:28 PM INFO: Cell returned
-07/05/2019 04:53:28 PM INFO: Running cell:
-df = pd.DataFrame(urls, columns = ['urls'])
+07/07/2019 08:25:08 PM INFO: Cell returned
+07/07/2019 08:25:08 PM INFO: Running cell:
+# df = pd.DataFrame(urls, columns = ['urls'])
 
-07/05/2019 04:53:28 PM INFO: Cell returned
-07/05/2019 04:53:28 PM INFO: Running cell:
-df.to_csv('old_urls_2.csv')
+07/07/2019 08:25:08 PM INFO: Cell returned
+07/07/2019 08:25:08 PM INFO: Running cell:
+# df.to_csv('aaa.csv')
 
-07/05/2019 04:53:28 PM INFO: Cell returned
-07/05/2019 04:53:28 PM INFO: Running cell:
-df = pd.read_csv('old_urls.csv')
+07/07/2019 08:25:08 PM INFO: Cell returned
+07/07/2019 08:25:08 PM INFO: Running cell:
+df = pd.read_csv('44k_urls.csv')
 
-07/05/2019 04:53:28 PM INFO: Cell returned
-07/05/2019 04:53:28 PM INFO: Running cell:
+07/07/2019 08:25:09 PM INFO: Cell returned
+07/07/2019 08:25:09 PM INFO: Running cell:
 errors = []
 
-07/05/2019 04:53:28 PM INFO: Cell returned
-07/05/2019 04:53:28 PM INFO: Running cell:
-for url in df['urls'].values:
+07/07/2019 08:25:09 PM INFO: Cell returned
+07/07/2019 08:25:09 PM INFO: Running cell:
+for i, url in enumerate(df['urls']):
     print(url)
-
-    a = scrap_article(chrome, url, True)
     try:
+        a = scrap_article(chrome, url, True)
         with open('comments/'+a['url'].split('/')[-1].split(',')[2], 'w') as f:
             f.write(str({'row': {
                'comments': a,
                'timestamp': dt.timestamp(dt.now())
                }
             }))
+        print(a['url'].split('/')[-1].split(',')[2])
+
     except:
         errors.append(url)
-
-    print(a['url'].split('/')[-1].split(',')[2])
-
-07/05/2019 05:09:40 PM INFO: Cell raised uncaught exception: 
-[0;31m---------------------------------------------------------------------------[0m
-[0;31mTimeoutException[0m                          Traceback (most recent call last)
-[0;32m<ipython-input-21-3aa66eb79817>[0m in [0;36m<module>[0;34m[0m
-[1;32m      2[0m     [0mprint[0m[0;34m([0m[0murl[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      3[0m [0;34m[0m[0m
-[0;32m----> 4[0;31m     [0ma[0m [0;34m=[0m [0mscrap_article[0m[0;34m([0m[0mchrome[0m[0;34m,[0m [0murl[0m[0;34m,[0m [0;32mTrue[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m      5[0m     [0;32mtry[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      6[0m         [0;32mwith[0m [0mopen[0m[0;34m([0m[0;34m'comments/'[0m[0;34m+[0m[0ma[0m[0;34m[[0m[0;34m'url'[0m[0;34m][0m[0;34m.[0m[0msplit[0m[0;34m([0m[0;34m'/'[0m[0;34m)[0m[0;34m[[0m[0;34m-[0m[0;36m1[0m[0;34m][0m[0;34m.[0m[0msplit[0m[0;34m([0m[0;34m','[0m[0;34m)[0m[0;34m[[0m[0;36m2[0m[0;34m][0m[0;34m,[0m [0;34m'w'[0m[0;34m)[0m [0;32mas[0m [0mf[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-
-[0;32m~/wyborcza_articles/data/scrap_article_current_tab.py[0m in [0;36mscrap_article[0;34m(chrome, url, first_time)[0m
-[1;32m     78[0m         [0mshowSubcommentsButton[0m[0;34m.[0m[0mclick[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     79[0m [0;34m[0m[0m
-[0;32m---> 80[0;31m     [0marticle[0m[0;34m[[0m[0;34m'comments'[0m[0;34m][0m [0;34m=[0m [0mget_comments[0m[0;34m([0m[0mchrome[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m     81[0m     [0;32mreturn[0m [0mloads[0m[0;34m([0m[0mdumps[0m[0;34m([0m[0marticle[0m[0;34m,[0m [0mensure_ascii[0m[0;34m=[0m[0;32mFalse[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     82[0m [0;34m[0m[0m
-
-[0;32m~/wyborcza_articles/data/scrap_article_current_tab.py[0m in [0;36mget_comments[0;34m(chrome)[0m
-[1;32m    147[0m                 [0;34m.[0m[0mfind_element_by_class_name[0m[0;34m([0m[0;34m'cVoteDown'[0m[0;34m)[0m[0;31m [0m[0;31m\[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    148[0m                 [0;34m.[0m[0mtext[0m[0;34m[0m[0;34m[0m[0m
-[0;32m--> 149[0;31m             [0;32mif[0m [0;34m'flag_SUSPICIOUS'[0m [0;32min[0m [0msubComment[0m[0;34m.[0m[0mget_attribute[0m[0;34m([0m[0;34m"class"[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m    150[0m                 [0mtmpCommentContainer[0m[0;34m[[0m[0;34m'suspicious'[0m[0;34m][0m [0;34m=[0m [0;32mTrue[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    151[0m             [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-
-[0;32m~/.local/lib/python3.6/site-packages/selenium/webdriver/remote/webelement.py[0m in [0;36mget_attribute[0;34m(self, name)[0m
-[1;32m    139[0m             attributeValue = self.parent.execute_script(
-[1;32m    140[0m                 [0;34m"return (%s).apply(null, arguments);"[0m [0;34m%[0m [0mgetAttribute_js[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
-[0;32m--> 141[0;31m                 self, name)
-[0m[1;32m    142[0m         [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    143[0m             [0mresp[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_execute[0m[0;34m([0m[0mCommand[0m[0;34m.[0m[0mGET_ELEMENT_ATTRIBUTE[0m[0;34m,[0m [0;34m{[0m[0;34m'name'[0m[0;34m:[0m [0mname[0m[0;34m}[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-
-[0;32m~/.local/lib/python3.6/site-packages/selenium/webdriver/remote/webdriver.py[0m in [0;36mexecute_script[0;34m(self, script, *args)[0m
-[1;32m    634[0m         return self.execute(command, {
-[1;32m    635[0m             [0;34m'script'[0m[0;34m:[0m [0mscript[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
-[0;32m--> 636[0;31m             'args': converted_args})['value']
-[0m[1;32m    637[0m [0;34m[0m[0m
-[1;32m    638[0m     [0;32mdef[0m [0mexecute_async_script[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mscript[0m[0;34m,[0m [0;34m*[0m[0margs[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-
-[0;32m~/.local/lib/python3.6/site-packages/selenium/webdriver/remote/webdriver.py[0m in [0;36mexecute[0;34m(self, driver_command, params)[0m
-[1;32m    319[0m         [0mresponse[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0mcommand_executor[0m[0;34m.[0m[0mexecute[0m[0;34m([0m[0mdriver_command[0m[0;34m,[0m [0mparams[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    320[0m         [0;32mif[0m [0mresponse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[0;32m--> 321[0;31m             [0mself[0m[0;34m.[0m[0merror_handler[0m[0;34m.[0m[0mcheck_response[0m[0;34m([0m[0mresponse[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m    322[0m             response['value'] = self._unwrap_value(
-[1;32m    323[0m                 response.get('value', None))
-
-[0;32m~/.local/lib/python3.6/site-packages/selenium/webdriver/remote/errorhandler.py[0m in [0;36mcheck_response[0;34m(self, response)[0m
-[1;32m    240[0m                 [0malert_text[0m [0;34m=[0m [0mvalue[0m[0;34m[[0m[0;34m'alert'[0m[0;34m][0m[0;34m.[0m[0mget[0m[0;34m([0m[0;34m'text'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    241[0m             [0;32mraise[0m [0mexception_class[0m[0;34m([0m[0mmessage[0m[0;34m,[0m [0mscreen[0m[0;34m,[0m [0mstacktrace[0m[0;34m,[0m [0malert_text[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0;32m--> 242[0;31m         [0;32mraise[0m [0mexception_class[0m[0;34m([0m[0mmessage[0m[0;34m,[0m [0mscreen[0m[0;34m,[0m [0mstacktrace[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m    243[0m [0;34m[0m[0m
-[1;32m    244[0m     [0;32mdef[0m [0m_value_or_default[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mobj[0m[0;34m,[0m [0mkey[0m[0;34m,[0m [0mdefault[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-
-[0;31mTimeoutException[0m: Message: timeout
-  (Session info: headless chrome=75.0.3770.90)
-
-07/05/2019 05:09:41 PM INFO: Shutdown kernel
-07/05/2019 05:09:44 PM WARNING: Exiting with nonzero exit status
-Traceback (most recent call last):
-  File "/home/uniserwis_sochaczew/.local/bin/runipy", line 7, in <module>
-    from runipy.main import main
-  File "/home/uniserwis_sochaczew/.local/lib/python3.6/site-packages/runipy/main.py", line 11, in <module>
-    from runipy.notebook_runner import NotebookRunner, NotebookError
-  File "/home/uniserwis_sochaczew/.local/lib/python3.6/site-packages/runipy/notebook_runner.py", line 18, in <module>
-    from IPython.utils.shimmodule import ShimWarning
-  File "/home/uniserwis_sochaczew/.local/lib/python3.6/site-packages/IPython/__init__.py", line 55, in <module>
-    from .terminal.embed import embed
-  File "/home/uniserwis_sochaczew/.local/lib/python3.6/site-packages/IPython/terminal/embed.py", line 16, in <module>
-    from IPython.terminal.interactiveshell import TerminalInteractiveShell
-  File "/home/uniserwis_sochaczew/.local/lib/python3.6/site-packages/IPython/terminal/interactiveshell.py", line 18, in <module>
-    from prompt_toolkit.enums import DEFAULT_BUFFER, EditingMode
-  File "/home/uniserwis_sochaczew/.local/lib/python3.6/site-packages/prompt_toolkit/__init__.py", line 17, in <module>
-    from .application import Application
-  File "/home/uniserwis_sochaczew/.local/lib/python3.6/site-packages/prompt_toolkit/application/__init__.py", line 2, in <module>
-    from .application import Application
-  File "/home/uniserwis_sochaczew/.local/lib/python3.6/site-packages/prompt_toolkit/application/application.py", line 3, in <module>
-    from prompt_toolkit.buffer import Buffer
-  File "/home/uniserwis_sochaczew/.local/lib/python3.6/site-packages/prompt_toolkit/buffer.py", line 12, in <module>
-    from .completion import CompleteEvent, get_common_complete_suffix, Completer, Completion, DummyCompleter
-  File "/home/uniserwis_sochaczew/.local/lib/python3.6/site-packages/prompt_toolkit/completion/__init__.py", line 5, in <module>
-    from .fuzzy_completer import FuzzyCompleter, FuzzyWordCompleter
-  File "/home/uniserwis_sochaczew/.local/lib/python3.6/site-packages/prompt_toolkit/completion/fuzzy_completer.py", line 7, in <module>
-    from prompt_toolkit.document import Document
-  File "/home/uniserwis_sochaczew/.local/lib/python3.6/site-packages/prompt_toolkit/document.py", line 33, in <module>
-    _FIND_CURRENT_BIG_WORD_RE = re.compile(r'^([^\s]+)')
-  File "/usr/lib/python3.6/re.py", line 233, in compile
-    return _compile(pattern, flags)
-  File "/usr/lib/python3.6/re.py", line 301, in _compile
-    p = sre_compile.compile(pattern, flags)
-  File "/usr/lib/python3.6/sre_compile.py", line 557, in compile
-    def compile(p, flags=0):
-KeyboardInterrupt
-07/05/2019 05:12:41 PM INFO: Reading notebook old_articles.ipynb
-07/05/2019 05:12:43 PM INFO: Running cell:
-from selenium import webdriver
-import pandas as pd
-from scrap_article_current_tab import scrap_article
-
-from datetime import datetime as dt
-from datetime import timedelta as td
-from os import makedirs
-from os.path import exists
-from time import sleep
-from json import loads
-
-07/05/2019 05:12:46 PM INFO: Cell returned
-07/05/2019 05:12:46 PM INFO: Running cell:
-now = dt.now()
-year = now.year
-month = now.month
-day = now.day
-ts = str(int(round(now.timestamp())))
-
-07/05/2019 05:12:46 PM INFO: Cell returned
-07/05/2019 05:12:46 PM INFO: Running cell:
-options = webdriver.ChromeOptions()
-options.add_argument('--headless')
-chrome = webdriver.Chrome(options=options)
-
-07/05/2019 05:12:52 PM INFO: Cell returned
-07/05/2019 05:12:52 PM INFO: Running cell:
-# chrome = webdriver.Chrome()
-
-07/05/2019 05:12:52 PM INFO: Cell returned
-07/05/2019 05:12:52 PM INFO: Running cell:
-chrome.get(url = 'http://wyborcza.pl/0,75248.html?str=100_23719317')
-
-07/05/2019 05:13:02 PM INFO: Cell returned
-07/05/2019 05:13:02 PM INFO: Running cell:
-sleep(10)
-
-07/05/2019 05:13:12 PM INFO: Cell returned
-07/05/2019 05:13:12 PM INFO: Running cell:
-# try to click rodo (first click opens sometimes an ad also)
-for i in range(3):
-    try:
-        sleep(3)
-        chrome.find_element_by_xpath('//*[@id="rodoNotificationWrapper"]/div[1]/div/p[2]')\
-            .click()
-    except:
-        pass
-
-07/05/2019 05:13:21 PM INFO: Cell returned
-07/05/2019 05:13:21 PM INFO: Running cell:
-# close new window if exists
-try:
-    chrome.switch_to.window(chrome.window_handles[1])
-    chrome.close()
-except:
-    pass
-
-07/05/2019 05:13:21 PM INFO: Cell returned
-07/05/2019 05:13:21 PM INFO: Running cell:
-chrome.switch_to.window(chrome.window_handles[0])
-
-07/05/2019 05:13:21 PM INFO: Cell returned
-07/05/2019 05:13:21 PM INFO: Running cell:
-chrome.get('https://login.wyborcza.pl/')
-
-07/05/2019 05:13:24 PM INFO: Cell returned
-07/05/2019 05:13:24 PM INFO: Running cell:
-chrome\
-    .find_element_by_xpath('//*[@id="wyborczaEmail"]')\
-    .send_keys('slusarczyk1@wp.pl')
-
-07/05/2019 05:13:25 PM INFO: Cell returned
-07/05/2019 05:13:25 PM INFO: Running cell:
-chrome\
-    .find_element_by_xpath('//*[@id="wyborczaPassword"]')\
-    .send_keys('Sraniejebanko1')
-
-07/05/2019 05:13:25 PM INFO: Cell returned
-07/05/2019 05:13:25 PM INFO: Running cell:
-chrome\
-    .find_element_by_xpath('/html/body/section/section[1]/form/div[4]/button')\
-    .click()
-
-07/05/2019 05:13:25 PM INFO: Cell returned
-07/05/2019 05:13:25 PM INFO: Running cell:
-sleep(5)
-
-07/05/2019 05:13:30 PM INFO: Cell returned
-07/05/2019 05:13:30 PM INFO: Running cell:
-urls = []
-for i in range(1100, 3300):
-    chrome.get(url = 'http://wyborcza.pl/0,75248.html?str='+str(i)+'_23719317')
-    for entry in chrome\
-        .find_element_by_xpath('//*[@id="pagetype_index"]/section[5]/div/main/div/div[2]/div/div[2]/ul')\
-        .find_elements_by_class_name('entry'):
+        print(url)
         
-        url = entry.find_element_by_tag_name('h3')\
-                .find_element_by_tag_name('a')\
-                .get_attribute('href')
-        #scrap_article(chrome, url, first_time)
-        urls.append(url)
     
 
-07/05/2019 05:35:41 PM INFO: Cell raised uncaught exception: 
-[0;31m---------------------------------------------------------------------------[0m
-[0;31mTimeoutException[0m                          Traceback (most recent call last)
-[0;32m<ipython-input-15-0fbcd484ceac>[0m in [0;36m<module>[0;34m[0m
-[1;32m      1[0m [0murls[0m [0;34m=[0m [0;34m[[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
-[1;32m      2[0m [0;32mfor[0m [0mi[0m [0;32min[0m [0mrange[0m[0;34m([0m[0;36m1100[0m[0;34m,[0m [0;36m3300[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[0;32m----> 3[0;31m     [0mchrome[0m[0;34m.[0m[0mget[0m[0;34m([0m[0murl[0m [0;34m=[0m [0;34m'http://wyborcza.pl/0,75248.html?str='[0m[0;34m+[0m[0mstr[0m[0;34m([0m[0mi[0m[0;34m)[0m[0;34m+[0m[0;34m'_23719317'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m      4[0m     [0;32mfor[0m [0mentry[0m [0;32min[0m [0mchrome[0m[0;31m\[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      5[0m         [0;34m.[0m[0mfind_element_by_xpath[0m[0;34m([0m[0;34m'//*[@id="pagetype_index"]/section[5]/div/main/div/div[2]/div/div[2]/ul'[0m[0;34m)[0m[0;31m\[0m[0;34m[0m[0;34m[0m[0m
-
-[0;32m~/.local/lib/python3.6/site-packages/selenium/webdriver/remote/webdriver.py[0m in [0;36mget[0;34m(self, url)[0m
-[1;32m    331[0m         [0mLoads[0m [0ma[0m [0mweb[0m [0mpage[0m [0;32min[0m [0mthe[0m [0mcurrent[0m [0mbrowser[0m [0msession[0m[0;34m.[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    332[0m         """
-[0;32m--> 333[0;31m         [0mself[0m[0;34m.[0m[0mexecute[0m[0;34m([0m[0mCommand[0m[0;34m.[0m[0mGET[0m[0;34m,[0m [0;34m{[0m[0;34m'url'[0m[0;34m:[0m [0murl[0m[0;34m}[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m    334[0m [0;34m[0m[0m
-[1;32m    335[0m     [0;34m@[0m[0mproperty[0m[0;34m[0m[0;34m[0m[0m
-
-[0;32m~/.local/lib/python3.6/site-packages/selenium/webdriver/remote/webdriver.py[0m in [0;36mexecute[0;34m(self, driver_command, params)[0m
-[1;32m    319[0m         [0mresponse[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0mcommand_executor[0m[0;34m.[0m[0mexecute[0m[0;34m([0m[0mdriver_command[0m[0;34m,[0m [0mparams[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    320[0m         [0;32mif[0m [0mresponse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[0;32m--> 321[0;31m             [0mself[0m[0;34m.[0m[0merror_handler[0m[0;34m.[0m[0mcheck_response[0m[0;34m([0m[0mresponse[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m    322[0m             response['value'] = self._unwrap_value(
-[1;32m    323[0m                 response.get('value', None))
-
-[0;32m~/.local/lib/python3.6/site-packages/selenium/webdriver/remote/errorhandler.py[0m in [0;36mcheck_response[0;34m(self, response)[0m
-[1;32m    240[0m                 [0malert_text[0m [0;34m=[0m [0mvalue[0m[0;34m[[0m[0;34m'alert'[0m[0;34m][0m[0;34m.[0m[0mget[0m[0;34m([0m[0;34m'text'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    241[0m             [0;32mraise[0m [0mexception_class[0m[0;34m([0m[0mmessage[0m[0;34m,[0m [0mscreen[0m[0;34m,[0m [0mstacktrace[0m[0;34m,[0m [0malert_text[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0;32m--> 242[0;31m         [0;32mraise[0m [0mexception_class[0m[0;34m([0m[0mmessage[0m[0;34m,[0m [0mscreen[0m[0;34m,[0m [0mstacktrace[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m    243[0m [0;34m[0m[0m
-[1;32m    244[0m     [0;32mdef[0m [0m_value_or_default[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mobj[0m[0;34m,[0m [0mkey[0m[0;34m,[0m [0mdefault[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-
-[0;31mTimeoutException[0m: Message: timeout
-  (Session info: headless chrome=75.0.3770.90)
-
-07/05/2019 05:35:41 PM INFO: Shutdown kernel
-07/05/2019 05:35:42 PM WARNING: Exiting with nonzero exit status
