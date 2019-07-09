@@ -28,9 +28,12 @@ document.getElementById("test").addEventListener('click', () => {
             container["media_type"] = "multiple_images";
           }
         } catch {
-          media =
-          container["media_desc"] = document.querySelector("#vjs_video_3 > div.vjs-title").innerText;
-          container["media_src"] = document.querySelector("#vjs_video_3_html5_api").src;
+          try {
+            container["media_desc"] = document.querySelector("#vjs_video_3 > div.vjs-title").innerText;
+          } catch {
+            container["media_desc"] = document.querySelector("#vjs_video_3_html5_api > div.vjs-title").innerText;
+          }
+          container["media_src"] = "";
           container["media_type"] = "video";
         }
 
@@ -40,12 +43,30 @@ document.getElementById("test").addEventListener('click', () => {
         } catch {
           container["title"] = document.querySelector("#pagetype_wideo > main > div > div > h1").innerText;
         }
-        container["author"] = document.querySelector("#gazeta_article_author").innerText;
-        container["date"] = document.querySelector("#art-datetime").innerText;
-        container["highlight"] = document.querySelector("#pagetype_art > div.content.container-inner > div.grid-row.splint-parent > section > article > section").innerText;
+
+        // author as well
+        try {
+          container["author"] = document.querySelector("#gazeta_article_author").innerText;
+        } catch {
+          container["author"] = document.querySelector("#art-header > div.art-header-meta > div.art-authors > span").innerText;
+        }
+
+        // same date
+        try {
+          container["date"] = document.querySelector("#art-datetime").innerText;
+        } catch {
+          container["date"] = document.querySelector("#gazeta_article_date").innerText;
+        }
+
+        // and highligh
+        try {
+          container["highlight"] = document.querySelector("#pagetype_art > div.content.container-inner > div.grid-row.splint-parent > section > article > section").innerText;
+        } catch {
+          container["highlight"] = document.querySelector("#pagetype_wideo > main > div > section > div.article > p").innerText;
+        }
 
         console.log(container);
-        return document.body.innerHTML;
+        return container;
     }
 
     //We have permission to access the activeTab, so we can call chrome.tabs.executeScript:
@@ -53,7 +74,6 @@ document.getElementById("test").addEventListener('click', () => {
         code: '(' + getData + ')();' //argument here is a string but function.toString() returns function's code
     }, (results) => {
         //Here we have just the innerHTML and not DOM structure
-        console.log('Popup script:')
         console.log(results[0]);
     });
 });

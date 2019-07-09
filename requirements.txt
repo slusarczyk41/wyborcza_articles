@@ -1,0 +1,6 @@
+pandas
+flask
+selenium
+tensorflow
+unidecode
+flask-cache
