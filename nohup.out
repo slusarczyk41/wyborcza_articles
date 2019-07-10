@@ -1,0 +1,122 @@
+07/08/2019 08:47:54 AM INFO: Reading notebook data/old_articles.ipynb
+07/08/2019 08:47:54 AM INFO: Running cell:
+from selenium import webdriver
+import pandas as pd
+from scrap_article_current_tab import scrap_article
+
+from datetime import datetime as dt
+from datetime import timedelta as td
+from os import makedirs
+from os.path import exists
+from time import sleep
+from json import loads
+
+07/08/2019 08:47:55 AM INFO: Cell returned
+07/08/2019 08:47:55 AM INFO: Running cell:
+now = dt.now()
+year = now.year
+month = now.month
+day = now.day
+ts = str(int(round(now.timestamp())))
+
+07/08/2019 08:47:55 AM INFO: Cell returned
+07/08/2019 08:47:55 AM INFO: Running cell:
+options = webdriver.ChromeOptions()
+options.add_argument('--headless')
+chrome = webdriver.Chrome(options=options)
+
+Traceback (most recent call last):
+  File "/home/uniserwis_sochaczew/.local/lib/python3.6/site-packages/runipy/main.py", line 215, in <module>
+    main()
+  File "/home/uniserwis_sochaczew/.local/lib/python3.6/site-packages/runipy/main.py", line 158, in main
+    nb_runner.run_notebook(skip_exceptions=args.skip_exceptions)
+  File "/home/uniserwis_sochaczew/.local/lib/python3.6/site-packages/runipy/notebook_runner.py", line 232, in run_notebook
+    self.run_cell(cell)
+  File "/home/uniserwis_sochaczew/.local/lib/python3.6/site-packages/runipy/notebook_runner.py", line 138, in run_cell
+    reply = self.kc.get_shell_msg()
+  File "/home/uniserwis_sochaczew/.local/lib/python3.6/site-packages/jupyter_client/client.py", line 77, in get_shell_msg
+    return self.shell_channel.get_msg(*args, **kwargs)
+  File "/home/uniserwis_sochaczew/.local/lib/python3.6/site-packages/jupyter_client/blocking/channels.py", line 50, in get_msg
+    ready = self.socket.poll(timeout)
+  File "/home/uniserwis_sochaczew/.local/lib/python3.6/site-packages/zmq/sugar/socket.py", line 697, in poll
+    evts = dict(p.poll(timeout))
+  File "/home/uniserwis_sochaczew/.local/lib/python3.6/site-packages/zmq/sugar/poll.py", line 99, in poll
+    return zmq_poll(self.sockets, timeout=timeout)
+  File "zmq/backend/cython/_poll.pyx", line 123, in zmq.backend.cython._poll.zmq_poll
+  File "zmq/backend/cython/checkrc.pxd", line 12, in zmq.backend.cython.checkrc._check_rc
+KeyboardInterrupt
+[IPKernelApp] WARNING | Parent appears to have exited, shutting down.
+07/08/2019 08:47:58 AM INFO: Reading notebook data/old_articles.ipynb
+07/08/2019 08:47:59 AM INFO: Running cell:
+from selenium import webdriver
+import pandas as pd
+from scrap_article_current_tab import scrap_article
+
+from datetime import datetime as dt
+from datetime import timedelta as td
+from os import makedirs
+from os.path import exists
+from time import sleep
+from json import loads
+
+07/08/2019 08:47:59 AM INFO: Cell returned
+07/08/2019 08:47:59 AM INFO: Running cell:
+now = dt.now()
+year = now.year
+month = now.month
+day = now.day
+ts = str(int(round(now.timestamp())))
+
+07/08/2019 08:47:59 AM INFO: Cell returned
+07/08/2019 08:47:59 AM INFO: Running cell:
+options = webdriver.ChromeOptions()
+options.add_argument('--headless')
+chrome = webdriver.Chrome(options=options)
+
+07/08/2019 08:48:01 AM INFO: Cell raised uncaught exception: 
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mSessionNotCreatedException[0m                Traceback (most recent call last)
+[0;32m<ipython-input-3-2bfdd2bd1a00>[0m in [0;36m<module>[0;34m[0m
+[1;32m      1[0m [0moptions[0m [0;34m=[0m [0mwebdriver[0m[0;34m.[0m[0mChromeOptions[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      2[0m [0moptions[0m[0;34m.[0m[0madd_argument[0m[0;34m([0m[0;34m'--headless'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 3[0;31m [0mchrome[0m [0;34m=[0m [0mwebdriver[0m[0;34m.[0m[0mChrome[0m[0;34m([0m[0moptions[0m[0;34m=[0m[0moptions[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m
+[0;32m~/.local/lib/python3.6/site-packages/selenium/webdriver/chrome/webdriver.py[0m in [0;36m__init__[0;34m(self, executable_path, port, options, service_args, desired_capabilities, service_log_path, chrome_options, keep_alive)[0m
+[1;32m     79[0m                     [0mremote_server_addr[0m[0;34m=[0m[0mself[0m[0;34m.[0m[0mservice[0m[0;34m.[0m[0mservice_url[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     80[0m                     keep_alive=keep_alive),
+[0;32m---> 81[0;31m                 desired_capabilities=desired_capabilities)
+[0m[1;32m     82[0m         [0;32mexcept[0m [0mException[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     83[0m             [0mself[0m[0;34m.[0m[0mquit[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/.local/lib/python3.6/site-packages/selenium/webdriver/remote/webdriver.py[0m in [0;36m__init__[0;34m(self, command_executor, desired_capabilities, browser_profile, proxy, keep_alive, file_detector, options)[0m
+[1;32m    155[0m             warnings.warn("Please use FirefoxOptions to set browser profile",
+[1;32m    156[0m                           DeprecationWarning, stacklevel=2)
+[0;32m--> 157[0;31m         [0mself[0m[0;34m.[0m[0mstart_session[0m[0;34m([0m[0mcapabilities[0m[0;34m,[0m [0mbrowser_profile[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    158[0m         [0mself[0m[0;34m.[0m[0m_switch_to[0m [0;34m=[0m [0mSwitchTo[0m[0;34m([0m[0mself[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    159[0m         [0mself[0m[0;34m.[0m[0m_mobile[0m [0;34m=[0m [0mMobile[0m[0;34m([0m[0mself[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/.local/lib/python3.6/site-packages/selenium/webdriver/remote/webdriver.py[0m in [0;36mstart_session[0;34m(self, capabilities, browser_profile)[0m
+[1;32m    250[0m         parameters = {"capabilities": w3c_caps,
+[1;32m    251[0m                       "desiredCapabilities": capabilities}
+[0;32m--> 252[0;31m         [0mresponse[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0mexecute[0m[0;34m([0m[0mCommand[0m[0;34m.[0m[0mNEW_SESSION[0m[0;34m,[0m [0mparameters[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    253[0m         [0;32mif[0m [0;34m'sessionId'[0m [0;32mnot[0m [0;32min[0m [0mresponse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    254[0m             [0mresponse[0m [0;34m=[0m [0mresponse[0m[0;34m[[0m[0;34m'value'[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/.local/lib/python3.6/site-packages/selenium/webdriver/remote/webdriver.py[0m in [0;36mexecute[0;34m(self, driver_command, params)[0m
+[1;32m    319[0m         [0mresponse[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0mcommand_executor[0m[0;34m.[0m[0mexecute[0m[0;34m([0m[0mdriver_command[0m[0;34m,[0m [0mparams[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    320[0m         [0;32mif[0m [0mresponse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 321[0;31m             [0mself[0m[0;34m.[0m[0merror_handler[0m[0;34m.[0m[0mcheck_response[0m[0;34m([0m[0mresponse[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    322[0m             response['value'] = self._unwrap_value(
+[1;32m    323[0m                 response.get('value', None))
+
+[0;32m~/.local/lib/python3.6/site-packages/selenium/webdriver/remote/errorhandler.py[0m in [0;36mcheck_response[0;34m(self, response)[0m
+[1;32m    240[0m                 [0malert_text[0m [0;34m=[0m [0mvalue[0m[0;34m[[0m[0;34m'alert'[0m[0;34m][0m[0;34m.[0m[0mget[0m[0;34m([0m[0;34m'text'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    241[0m             [0;32mraise[0m [0mexception_class[0m[0;34m([0m[0mmessage[0m[0;34m,[0m [0mscreen[0m[0;34m,[0m [0mstacktrace[0m[0;34m,[0m [0malert_text[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 242[0;31m         [0;32mraise[0m [0mexception_class[0m[0;34m([0m[0mmessage[0m[0;34m,[0m [0mscreen[0m[0;34m,[0m [0mstacktrace[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    243[0m [0;34m[0m[0m
+[1;32m    244[0m     [0;32mdef[0m [0m_value_or_default[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mobj[0m[0;34m,[0m [0mkey[0m[0;34m,[0m [0mdefault[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mSessionNotCreatedException[0m: Message: session not created: This version of ChromeDriver only supports Chrome version 76
+
+07/08/2019 08:48:01 AM INFO: Shutdown kernel
+07/08/2019 08:48:01 AM WARNING: Exiting with nonzero exit status
