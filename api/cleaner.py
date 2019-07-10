@@ -3,7 +3,10 @@ from re import sub
 
 
 class dataCleaner():
-    def __init__(self, data):
+    def __init__(self):
+        return None
+    
+    def feed_with_data(self, data):
         self.data = data
 
     def decode_chars(self):
@@ -18,7 +21,7 @@ class dataCleaner():
         }
 
     def remove_stop_words(self):
-        with open('../data/polish.stopwords.txt', 'r') as f:
+        with open('data/polish.stopwords.txt', 'r') as f:
             stop_words = f.read().split('\n')
         return {
             key: " ".join([word.strip()
