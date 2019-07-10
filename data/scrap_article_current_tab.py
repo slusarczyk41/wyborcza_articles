@@ -7,7 +7,7 @@ from json import dumps, loads
 
 def scrap_article(chrome, url, first_time):
     chrome.get(url=url)
-    sleep(1)
+    sleep(2.2)
     article = {}
     article['url'] = url
     try:
@@ -16,6 +16,20 @@ def scrap_article(chrome, url, first_time):
         pass
 
     if first_time == True:
+        try:
+            article['author'] = chrome \
+                 .find_element_by_xpath('//*[@id="art-header"]/div[3]/div[1]/span') \
+                 .text
+        except:
+            try:
+                article['author'] = chrome \
+                     .find_element_by_xpath('//*[@id="gazeta_article_author"]') \
+                     .text
+            except:
+                article['author'] = chrome \
+                     .find_element_by_xpath('//*[@id="art-tags"]/span') \
+                     .text
+
         try:
             article['division'] = chrome \
              .find_element_by_xpath('//*[@id="art-tags"]/a/span') \
@@ -27,31 +41,34 @@ def scrap_article(chrome, url, first_time):
                  .text
             except:
                 article['division'] = None
-        
+            if article['author'] == article['division']:
+                article['division'] = chrome \
+                 .find_element_by_class_name('active') \
+                 .find_element_by_tag_name('a') \
+                 .get_attribute('title')
+
         try:
             article['pub_date'] = chrome \
                 .find_element_by_xpath('//*[@id="art-datetime"]') \
                 .text
         except:
-            article['pub_date'] = chrome \
-                .find_element_by_xpath('//*[@id="gazeta_article_date"]') \
-                .text
-        
-        try:
-            article['author'] = chrome \
-                 .find_element_by_xpath('//*[@id="art-header"]/div[3]/div[1]/span') \
-                 .text
-        except:
-            article['author'] = chrome \
-                 .find_element_by_xpath('//*[@id="gazeta_article_author"]') \
-                 .text
-        
+            try:
+                article['pub_date'] = chrome \
+                    .find_element_by_xpath('//*[@id="gazeta_article_date"]') \
+                    .text
+            except:
+                article['pub_date'] = chrome \
+                    .find_element_by_xpath('//*[@id="art-header"]/div[3]/div[2]/time') \
+                    .text
+
+
+
         try:
             article['title'] = chrome.find_element_by_xpath('//*[@id="art-header"]/div[2]/h1').text
         except:
             article['title'] = chrome.\
                 find_element_by_xpath('//*[@id="pagetype_wideo"]/main/div/div/h1').text
-        
+
         try:
             article['highlight'] = chrome \
               .find_element_by_xpath('//*[@id="pagetype_art"]/div[4]/div[2]/section/article/section') \
@@ -92,13 +109,13 @@ def scrap_article(chrome, url, first_time):
             except:
                 article['media_desc'] = chrome.find_element_by_id('vjs_video_3_html5_api')\
                     .get_attribute("title")
-                
+
             article['media_src'] = ''
             article['media_type'] = 'video'
 
     click_expand_comments(chrome)
 
-    sleep(1)
+    sleep(1.5)
     try:
         for showSubcommentsButton in chrome \
                 .find_element_by_xpath('//*[@id="pagetype_art"]/main/div/section/div[2]/div[2]/section/section') \
@@ -108,24 +125,24 @@ def scrap_article(chrome, url, first_time):
             showSubcommentsButton.click()
     except:
         pass
-    
+
 
     article['comments'] = get_comments(chrome)
-        
+
     return loads(dumps(article, ensure_ascii=False))
 
 
 def get_comments(chrome):
     allComments = []
-    
+
     try:
         comments_section = chrome \
     .find_element_by_xpath('//*[@id="pagetype_art"]/main/div/section/div[2]/div[2]/section/section')
     except:
         comments_section = chrome \
     .find_element_by_xpath('//*[@id="pagetype_wideo"]/main/div/section/div[3]/div[2]/section/section')
-        
-        
+
+
     for mainCommentContainer in comments_section\
             .find_elements_by_class_name('cResHidden'):
         cContainer = {
@@ -231,6 +248,6 @@ if __name__ == '__main__':
     chrome = webdriver.Chrome(options=chrome_options)
     # chrome = webdriver.Chrome()
     article = scrap_article(chrome, argv[1], True)
-    print(article)
+    #print(article)
 
     chrome.close()
