@@ -13,6 +13,6 @@ surprise = ['zaskoczylo', 'dziwne', 'niesamowite', 'zaskakujace', 'ciekawe', 'ni
             'zaskoczy', 'zdziwil']
 # Scary news
 fear = ['boje', 'strach', 'strasznie', 'balam', 'dreszcze', 'ciarki', 'balem', 'przestraszylem', 
-        'przestraszylam', 'horror']
+        'przestraszylam', 'horror', 'przerazajace', 'przerazilem', 'przerazilam', 'przerazenie']
 
 all_flag_words = rage + joy + sadness + surprise + fear 
