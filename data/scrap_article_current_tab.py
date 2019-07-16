@@ -115,7 +115,7 @@ def scrap_article(chrome, url, first_time):
 
     click_expand_comments(chrome)
 
-    sleep(1.5)
+    sleep(4)
     try:
         for showSubcommentsButton in chrome \
                 .find_element_by_xpath('//*[@id="pagetype_art"]/main/div/section/div[2]/div[2]/section/section') \
