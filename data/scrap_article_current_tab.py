@@ -7,7 +7,7 @@ from json import dumps, loads
 
 def scrap_article(chrome, url, first_time):
     chrome.get(url=url)
-    sleep(2.2)
+    sleep(3.5)
     article = {}
     article['url'] = url
     try:
