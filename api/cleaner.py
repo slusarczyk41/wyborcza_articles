@@ -3,30 +3,28 @@ from re import sub
 
 
 class dataCleaner():
-    def __init__(self):
-        return None
-    
-    def feed_with_data(self, data):
+    def __init__(self, data):
         self.data = data
 
     def decode_chars(self):
-        return {
+        self.data = {
             key: unidecode(value) for key, value in self.data.items()
         }
 
     def remove_special_char(self):
-        return {
+        self.data = {
             key: sub(r"[^a-z| ]", "", value.lower())
                 for key, value in self.data.items()
         }
 
     def remove_stop_words(self):
-        with open('data/polish.stopwords.txt', 'r') as f:
+        with open('../data/polish.stopwords.txt', 'r') as f:
             stop_words = f.read().split('\n')
-        return {
+        self.data = {
             key: " ".join([word.strip()
                     for word in value.split(' ')
-                        if word.strip() not in stop_words])
+                        if word.strip() not in stop_words and
+                            len(word) > 1])
                 for key, value in self.data.items()
         }
 

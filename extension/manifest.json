@@ -10,6 +10,9 @@
   },
   "permissions": [
       "activeTab",
-      "<all_urls>"
+      "<all_urls>",
+      "http://127.0.0.1/*",
+      "contextMenus",
+      "https://wyborcza.pl/*"
   ]
 }
