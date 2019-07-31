@@ -145,3 +145,25 @@ for i, url in enumerate(df['urls']):
         errors.append(url)
         
 
+07/27/2019 04:43:58 PM INFO: Cell returned
+07/27/2019 04:43:58 PM INFO: Running cell:
+
+
+07/27/2019 04:43:58 PM INFO: Cell returned
+07/27/2019 04:43:58 PM INFO: Running cell:
+a['comments']
+
+07/27/2019 04:43:58 PM INFO: Cell returned
+07/27/2019 04:43:58 PM INFO: Running cell:
+
+
+07/27/2019 04:43:58 PM INFO: Cell returned
+07/27/2019 04:43:58 PM INFO: Running cell:
+pd.DataFrame(errors, columns = ['urls']).to_csv('error_urls.csv')
+
+07/27/2019 04:43:59 PM INFO: Cell returned
+07/27/2019 04:43:59 PM INFO: Running cell:
+
+
+07/27/2019 04:43:59 PM INFO: Cell returned
+07/27/2019 04:43:59 PM INFO: Shutdown kernel
