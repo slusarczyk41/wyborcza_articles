@@ -74,13 +74,17 @@ document.getElementById("content").addEventListener('click', () => {
     chrome.tabs.executeScript({
         code: '(' + getData + ')();'
     }, (container) => {
+        // create, send the request
         var request = new XMLHttpRequest();
         request.open("POST", "http://127.0.0.1:5000", true);
         request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         request.send(JSON.stringify(container[0]));
+        // change button text to notify an user
         document.getElementById("content").innerHTML = "Processing"
+
         request.onreadystatechange = function() {
           document.getElementById("content").innerHTML = "Evaluate"
+          // if the response is ok, display predictions
           if (request.readyState === 4){
               var pred = JSON.parse(request.response)["predictions"];
               document.getElementById("fear").innerHTML = "Fear: "+pred.fear_cat;

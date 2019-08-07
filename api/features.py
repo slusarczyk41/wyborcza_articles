@@ -106,24 +106,13 @@ class featureMaker():
         self.data = cleanedData
 
         tf_idf = self.calculate_tf_idf()
-        # one list with length same as idf
-
         vectors = self.calculate_vectors()
-        # list of vectors for each content type
-
         dummy_dates = self.get_dummy_dates()
-        # dates dummies
 
         self.read_dictionaries()
-
         author_dummy = self.get_dummies_from('author')
-        # author dummies
-
         division_dummy = self.get_dummies_from('division')
-        # division dummies
-
         media_type_dummy = self.get_dummies_from('media')
-        # media type dummies
 
         return {
             "dummy_dates": dummy_dates,

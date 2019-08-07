@@ -8,17 +8,6 @@ from models import modelContainer
 
 @app.route("/", methods = ['GET', 'POST'])
 def get_predictions():
-    incomingData = {
-        "title": "Dupa sranie jebanie z dupy ĄĄĄąą żźźźóaa że",
-        "content": "jebanie jebanie w dupe",
-        "author": "Jacek dupa",
-        "highlight": "Pupa",
-        "author": "swiat",
-        "division": "swiat",
-        "media_desc": "gowno jakies",
-        "media": "image",
-        "date": "16 lipca 2019 | 12:00"
-    }
     if request.data:
         incomingData = dict(loads(request.data))
         textColumnsToClean = ['title', 'highlight', 'content', 'media_desc']
