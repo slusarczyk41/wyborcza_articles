@@ -14,5 +14,12 @@
       "http://127.0.0.1/*",
       "contextMenus",
       "https://wyborcza.pl/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://wyborcza.pl/*"],
+      "run_at": "document_start",
+      "js": ["content.js"]
+    }
   ]
 }

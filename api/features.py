@@ -6,10 +6,9 @@ from json import load
 
 
 class featureMaker():
-    def __init__(self, data, word2vec_path):
-        self.data = data
+    def __init__(self, word2vec_path, columns):
         self.word2vec_path = word2vec_path
-        self.columns = ['title', 'media_desc', 'highlight', 'content']
+        self.columns = columns
         self.months = {
             'stycznia': 1,
             'lutego': 2,
@@ -25,13 +24,13 @@ class featureMaker():
             'grudnia': 12
         }
 
-    cache.cached(timeout=60)
+    cache.cached(timeout=3600)
     def read_idf(self):
-        with open('../data/idf') as f:
-            idf = f.read().split('\n')
-        return {pair.split(' ')[0]: int(pair.split(' ')[1]) for pair in idf if pair != ''}
+        with open('../labeling/idf_dict') as f:
+            idf = {key: value for key, value in load(f).items() if value >= 100}
+        return idf
 
-    cache.cached(timeout=60)
+    cache.cached(timeout=3600)
     def read_word2vec(self):
         with open(self.word2vec_path) as f:
             lines = f.read().split('\n')
@@ -39,12 +38,12 @@ class featureMaker():
             x.split(' ')[0]: [float(x) for x in x.split(' ')[1:]] for x in lines
         }
 
-    cache.cached(timeout=60)
+    cache.cached(timeout=3600)
     def read_dictionaries(self):
         dictionaries = {}
-        for column in ['author', 'division', 'media']:
+        for column in ['division', 'media', 'author']:
             with open('../labeling/'+column+"_dict") as f:
-                dictionaries[column] = load(f)
+                dictionaries[column] = {x: i for i, x in enumerate(load(f))}
         self.dicts = dictionaries
 
     def calculate_tf(self):
@@ -63,9 +62,9 @@ class featureMaker():
         word2vec = self.read_word2vec()
         word2vec_vocabulary = word2vec.keys()
 
-        vectors_container = []
+        vectors_container = {}
         for column in self.columns:
-            vector = np.zeros(300, dtype = "float64")
+            vector = np.zeros(100, dtype = "float64")
             n_words = 0
             for word in self.data[column].split(' '):
                 if word in word2vec_vocabulary:
@@ -73,9 +72,9 @@ class featureMaker():
                     n_words += 1
             if n_words:
                 vector = np.divide(vector, n_words)
-            vectors_container.append(vector.tolist())
+            vectors_container[column] = vector.tolist()
 
-        return [x for x in [i for i in vectors_container] for x in x]
+        return vectors_container
 
     def process_date(self):
         date = self.data['date']
@@ -103,7 +102,9 @@ class featureMaker():
             return_list[i] = 1
         return return_list
 
-    def process(self):
+    def process(self, cleanedData):
+        self.data = cleanedData
+
         tf_idf = self.calculate_tf_idf()
         # one list with length same as idf
 
@@ -123,7 +124,12 @@ class featureMaker():
 
         media_type_dummy = self.get_dummies_from('media')
         # media type dummies
-        print(len(dummy_dates + author_dummy + media_type_dummy + division_dummy +\
-                vectors + tf_idf))
-        return dummy_dates + author_dummy + media_type_dummy + division_dummy +\
-                vectors + tf_idf
+
+        return {
+            "dummy_dates": dummy_dates,
+            "author_dummy": author_dummy,
+            "media_type_dummy": media_type_dummy,
+            "division_dummy": division_dummy,
+            "vectors": vectors,
+            "tf_idf": tf_idf,
+        }

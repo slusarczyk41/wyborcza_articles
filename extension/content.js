@@ -78,12 +78,17 @@ document.getElementById("content").addEventListener('click', () => {
         request.open("POST", "http://127.0.0.1:5000", true);
         request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         request.send(JSON.stringify(container[0]));
+        document.getElementById("content").innerHTML = "Processing"
         request.onreadystatechange = function() {
-            if (request.readyState === 4){
-                document.getElementById("results").innerHTML = request.response;
-            } else {
-                document.getElementById("results").innerHTML = 'Api is not working';
-            }
+          document.getElementById("content").innerHTML = "Evaluate"
+          if (request.readyState === 4){
+              var pred = JSON.parse(request.response)["predictions"];
+              document.getElementById("fear").innerHTML = "Fear: "+pred.fear_cat;
+              document.getElementById("sadness").innerHTML = "Sadness: "+pred.sadness_cat;
+              document.getElementById("surprise").innerHTML = "Surprise: "+pred.surprise_cat;
+              document.getElementById("joy").innerHTML = "Joy: "+pred.joy_cat;
+              document.getElementById("rage").innerHTML = "Rage: "+pred.rage_cat;
+          }
         };
 
     });

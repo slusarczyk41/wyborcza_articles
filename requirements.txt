@@ -1,6 +1,7 @@
 pandas
 flask
 selenium
-tensorflow
+tensorflow==1.13
 unidecode
 flask-cache
+joblib
