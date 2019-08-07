@@ -76,7 +76,7 @@ document.getElementById("content").addEventListener('click', () => {
     }, (container) => {
         // create, send the request
         var request = new XMLHttpRequest();
-        request.open("POST", "http://34.90.85.123:5000", true);
+        request.open("POST", "http://34.90.85.123:5000/", true);
         request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         request.send(JSON.stringify(container[0]));
         // change button text to notify an user

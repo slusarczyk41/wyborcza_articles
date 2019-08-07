@@ -10,7 +10,7 @@ from waitress import serve
 @app.route("/", methods = ['GET', 'POST'])
 def get_predictions():
     if request.data:
-        incomingData = dict(loads(request.data))
+        incomingData = dict(loads(request.data.decode("utf-8")))
         textColumnsToClean = ['title', 'highlight', 'content', 'media_desc']
         modelsToUse = ['surprise_cat', 'rage_cat', 'joy_cat', 'fear_cat', 'sadness_cat']
 
