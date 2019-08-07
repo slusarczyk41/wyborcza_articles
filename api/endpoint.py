@@ -4,6 +4,7 @@ from json import loads
 from cleaner import dataCleaner
 from features import featureMaker
 from models import modelContainer
+from waitress import serve
 
 
 @app.route("/", methods = ['GET', 'POST'])
@@ -32,4 +33,5 @@ def get_predictions():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # app.run(debug=True)
+    serve(app, port = 5000)
