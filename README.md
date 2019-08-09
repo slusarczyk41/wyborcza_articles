@@ -20,6 +20,7 @@ If you have scrapped more data you have to run all notebooks from 1-4, and then 
 #### Quickstart - api and extension
 - for api run python api/endpoint.py
 - for chrome extension you need to turn on developer mode, go to chrome://extensions, and load unpacked whole directory /extension.
+- Then you need just to change request url in content.js, 79 line for 127.0.0.1:5000.
 
 ## Introduction
 I was looking for an idea for a NLP project, so it can be both challenging, so I can learn as much as I can about
@@ -102,12 +103,21 @@ directory, data scrapping and sending a request is inside content.js file.
 
 #### 6. Further steps
 
-- Find people who got paid to write rage comments
+###### 1) Find people who got paid to write rage comments
 
 As I wrote ath the beginning I found that some comments are flagged as "suspicious". We all know that there are companies who got paid for writing comments for specific purposes, maybe I am able to cluster a real users and those companies/bots? Useful features:
-- sentiment
-- regularity
+* sentiment
+* regularity
 - connections with other commenters
 - vocabulary
-- response speed
-- posting hours
+* response speed
+* posting hours
+
+
+
+##### 2) Try again training model for number of replies label with different settings
+Try:
+- Batch normalization
+- Adam optimizer
+- zero centered - data
+- lower learning rate
