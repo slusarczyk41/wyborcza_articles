@@ -102,7 +102,7 @@ directory, data scrapping and sending a request is inside content.js file.
 
 #### 6. Further steps
 
-###### 1) Find people who got paid to write rage comments
+##### 1) Find people who got paid to write rage comments
 
 As I wrote at the beginning I found that some comments are flagged as "suspicious". We all know that there are companies who get paid for writing comments for specific purposes, maybe I could cluster all users into a real ones and those hired by companies (or bots?). Useful features:
 - sentiment
@@ -112,7 +112,7 @@ As I wrote at the beginning I found that some comments are flagged as "suspiciou
 - response speed
 - posting hours
 
-###### 2) Try again training model for number of replies label with different settings
+##### 2) Try again training model for number of replies label with different settings
 Try:
 - Batch normalization
 - Adam optimizer
