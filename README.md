@@ -95,10 +95,11 @@ The api can be found in
 I split it into four important files, endpoint (data is received and returned), cleaner (basic cleaning), features (calculate features), models (calculate predictions)
 
 #### 5. Write chrome extension
-The last thing needed for the project to be considered completed - easy user interface. While writing that it works locally, I added it to chrome store and it has to be validated. It is inside
+The last thing needed for the project to be considered completed - easy user interface. It's got validated and is available in [chrome shop](https://chrome.google.com/webstore/detail/nmlllldkfdfjloidhgeokmoialclnfnl/publish-accepted?authuser=0&hl=pl)
+
 > /extension
 
-directory, data scrapping and sending a request is inside content.js file.
+The whole process, data scrapping and sending a request is inside content.js file.
 
 #### 6. Further steps
 
